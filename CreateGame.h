@@ -1,10 +1,10 @@
-#include <iostream>
 #include <fstream>
 #include <string>
 #include <vector>
 #include <sstream>
 #include <stdlib.h>
 #include <time.h>
+#include <iostream>
 
 using namespace std;
 
@@ -74,6 +74,7 @@ public:
 class Supervisor : public Human {
 private:
     string Mask;
+    vector <int> CompetitorsAssigned;
 public:
     void setMask(string mask) {
         this -> Mask = mask;
@@ -91,6 +92,7 @@ class SupervisorDivision {
 private:
     Supervisor Person[3];
     int NOS; // Number of Supervisors
+    vector <int> CompetitorsAssigned;
 public:
     SupervisorDivision() {
         NOS = 0;
@@ -109,6 +111,20 @@ public:
         for (int i = 0; i < NOS; i++) {
             Person[i].showDetails();
         }
+    }
+
+    void addCompetitor(int number) {
+        CompetitorsAssigned.push_back(number);
+    }
+
+    void deleteCompetitor(int number) {
+        CompetitorsAssigned.erase(CompetitorsAssigned.begin() + number);
+    }
+
+    void showAssignedCompetitors() {
+        for (int i = 0; i < CompetitorsAssigned.size(); i++) 
+            cout << CompetitorsAssigned[i] << " ";
+        cout << endl;
     }
 };
 
@@ -139,11 +155,11 @@ public:
     }
 };
 
-int main()
-{
-    People Competitors;
-    SupervisorDivision Division1, Division2, Division3;
+People Competitors;
+SupervisorDivision Divisions[3];
 
+void createGame()
+{
     vector<string> index;
     vector<string> names;
     vector<string> surnames;
@@ -152,6 +168,8 @@ int main()
     string line, word;
 
     fstream file("Names_v2.csv", ios::in);
+
+    getline(file, line);
 
     if (file.is_open()) {
         while (getline(file, line)) {
@@ -190,32 +208,47 @@ int main()
     int supervisorIndex = 0;
     string maskType[] = {"Circle", "Triangle", "Square"};
 
-    Division1.addPerson(names[supervisorIndex], surnames[supervisorIndex], cities[supervisorIndex], maskType[0]);
-    supervisorIndex++;
-    Division1.addPerson(names[supervisorIndex], surnames[supervisorIndex], cities[supervisorIndex], maskType[1]);
-    supervisorIndex++;
-    Division1.addPerson(names[supervisorIndex], surnames[supervisorIndex], cities[supervisorIndex], maskType[2]);
-    supervisorIndex++;
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++, supervisorIndex++) {
+            Divisions[i].addPerson(names[supervisorIndex], surnames[supervisorIndex], cities[supervisorIndex], maskType[j]);
+            index.pop_back();
+        }
+    }
 
-    Division2.addPerson(names[supervisorIndex], surnames[supervisorIndex], cities[supervisorIndex], maskType[0]);
-    supervisorIndex++;
-    Division2.addPerson(names[supervisorIndex], surnames[supervisorIndex], cities[supervisorIndex], maskType[1]);
-    supervisorIndex++;
-    Division2.addPerson(names[supervisorIndex], surnames[supervisorIndex], cities[supervisorIndex], maskType[2]);
-    supervisorIndex++;
+    // Competitors.showCompetitors();
 
-    Division3.addPerson(names[supervisorIndex], surnames[supervisorIndex], cities[supervisorIndex], maskType[0]);
-    supervisorIndex++;
-    Division3.addPerson(names[supervisorIndex], surnames[supervisorIndex], cities[supervisorIndex], maskType[1]);
-    supervisorIndex++;
-    Division3.addPerson(names[supervisorIndex], surnames[supervisorIndex], cities[supervisorIndex], maskType[2]);
-    supervisorIndex++;
+    // for (int i = 0; i < 3; i++) {
+    //     Divisions[i].showDetails();
+    // }
 
-    Competitors.showCompetitors();
+    // for (int i = 0; i < 3; i++) {
+    //     for (int j = 0; j < 33; j++) {
+    //         // int PlayerAssigned = rand() % NumberAvailable;
+    //         // cout << index[PlayerAssigned] << " ";
+    //         // // PlayersAvailable.erase(PlayersAvailable.begin() + PlayerAssigned);
+    //         // NumberAvailable--;
+    //     }
+    //     // cout << endl;
+    // }
 
-    Division1.showDetails();
-    Division2.showDetails();
-    Division3.showDetails();
+    NumberAvailable = 99;
 
-    return 0;
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 33; j++) {
+            int PlayerAssigned = rand() % NumberAvailable;
+            Divisions[i].addCompetitor(stoi(index[PlayerAssigned]));
+            // cout << index[PlayerAssigned] << " ";
+            index.erase(index.begin() + PlayerAssigned);
+            NumberAvailable--;
+        }
+        // cout << endl;
+    }
+
+    Divisions[0].showAssignedCompetitors();
+    Divisions[1].showAssignedCompetitors();
+    Divisions[2].showAssignedCompetitors();
+
+
+    return;
 }
+
