@@ -74,7 +74,7 @@ public:
 class Supervisor : public Human {
 private:
     string Mask;
-    vector <int> CompetitorsAssigned;
+    vector <int> CompetitorsAllocated;
 public:
     void setMask(string mask) {
         this -> Mask = mask;
@@ -86,11 +86,24 @@ public:
     void showDetails() {
         cout << "Mask : " << getMask() <<  ". Name: " << getName() << " " << getSurname() << " from " << getCity() << " | Weight : " << getWeight() << " | Money owed : " << getMoneyOwed() << endl;  
     }
+
+    void addCompetitors(int number) {
+        CompetitorsAllocated.push_back(number);
+    }
+
+    void showAllocatedCompetitors() {
+        cout << "Supervisor : " << getName() << " " << getSurname() << " has these competitors assigned : ";
+        for (int i = 0; i < CompetitorsAllocated.size(); i++) {
+            cout << CompetitorsAllocated[i] << " ";
+        }
+        cout << endl;
+    }
 };
 
 class SupervisorDivision {
 private:
     Supervisor Person[3];
+    // vector <Supervisor> Person;
     int NOS; // Number of Supervisors
     vector <int> CompetitorsAssigned;
 public:
@@ -125,6 +138,25 @@ public:
         for (int i = 0; i < CompetitorsAssigned.size(); i++) 
             cout << CompetitorsAssigned[i] << " ";
         cout << endl;
+    }
+
+    void splitCompetitorsToSupervisors() {
+        try {
+            if (CompetitorsAssigned.size() != 33)
+                throw 1;
+            for (int i = 0, x = 0; i < NOS; i++, x++) {
+                for (int j = 0; j < 9; j++, x++) {
+                    Person[i].addCompetitors(CompetitorsAssigned[x]);
+                }
+            }
+        } catch (...) {
+            cout << "Incorrect number of competitors assigned" << endl;
+        }
+    }
+    void showSplit() {
+        for (int i = 0; i < NOS; i++) {
+            Person[i].showAllocatedCompetitors();
+        }
     }
 };
 
@@ -214,6 +246,8 @@ void createGame()
             index.pop_back();
         }
     }
+    cout << "1";
+
 
     // Competitors.showCompetitors();
 
@@ -247,6 +281,17 @@ void createGame()
     Divisions[0].showAssignedCompetitors();
     Divisions[1].showAssignedCompetitors();
     Divisions[2].showAssignedCompetitors();
+
+
+    Divisions[0].splitCompetitorsToSupervisors();
+    Divisions[1].splitCompetitorsToSupervisors();
+    Divisions[2].splitCompetitorsToSupervisors();
+
+
+    Divisions[0].showSplit();
+    Divisions[1].showSplit();
+    Divisions[2].showSplit();
+
 
 
     return;
