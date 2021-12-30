@@ -59,15 +59,62 @@ public:
 class Competitor : public Human {
 private:
     int Number;
+    bool isEliminated;
 public:
     void setNumber(int number) {
         this -> Number = number;
+        this -> isEliminated = false;
     }
     int getNumber() {
         return this -> Number;
     }
+
     void showDetails() {
-        cout << getNumber() <<  ". Name: " << getName() << " " << getSurname() << " from " << getCity() << " | Weight : " << getWeight() << " | Money owed : " << getMoneyOwed() << endl;  
+        if (isEliminated) {
+            cout << "ELIMINATED : " << getNumber() <<  ". Name: " << getName() << " " << getSurname() << " from " <<
+                 getCity() << " | Weight : " << getWeight() << " | Money owed : " << getMoneyOwed() << endl;  
+        } else {
+            cout << "     ALIVE : " << getNumber() <<  ". Name: " << getName() << " " << getSurname() << " from " <<
+                 getCity() << " | Weight : " << getWeight() << " | Money owed : " << getMoneyOwed() << endl;  
+        }
+    }
+
+    void getsEliminated() {
+        this -> isEliminated = true;
+    }
+};
+
+class People {
+private:
+    Competitor Person[100];
+    int NOH; // Number of humans
+public:
+    People() {
+        NOH = 0;
+    }
+    void addPerson(string name, string surname, string city) {
+        Person[NOH].setName(name);
+        Person[NOH].setSurname(surname);
+        Person[NOH].setCity(city);
+        Person[NOH].measureWeight();
+        Person[NOH].writeMoneyOwed();
+        Person[NOH].setNumber(NOH + 1);
+        NOH++;
+    }
+    void showNOH() {
+        cout << NOH << endl;
+    }
+    void showCompetitors() {
+        for (int i = 0; i < NOH; i++) {
+            Person[i].showDetails();
+        }
+    }
+    void getCompetitorName(int number) {
+        cout << Person[number - 1].getName() << " " << Person[number - 1].getSurname() << endl;
+    }
+
+    void eliminateCompetitor(int number) {
+        Person[number - 1].getsEliminated();
     }
 };
 
@@ -103,7 +150,6 @@ public:
 class SupervisorDivision {
 private:
     Supervisor Person[3];
-    // vector <Supervisor> Person;
     int NOS; // Number of Supervisors
     vector <int> CompetitorsAssigned;
 public:
@@ -156,33 +202,6 @@ public:
     void showSplit() {
         for (int i = 0; i < NOS; i++) {
             Person[i].showAllocatedCompetitors();
-        }
-    }
-};
-
-class People {
-private:
-    Competitor Person[100];
-    int NOH; // Number of humans
-public:
-    People() {
-        NOH = 0;
-    }
-    void addPerson(string name, string surname, string city) {
-        Person[NOH].setName(name);
-        Person[NOH].setSurname(surname);
-        Person[NOH].setCity(city);
-        Person[NOH].measureWeight();
-        Person[NOH].writeMoneyOwed();
-        Person[NOH].setNumber(NOH + 1);
-        NOH++;
-    }
-    void showNOH() {
-        cout << NOH << endl;
-    }
-    void showCompetitors() {
-        for (int i = 0; i < NOH; i++) {
-            Person[i].showDetails();
         }
     }
 };
@@ -246,24 +265,6 @@ void createGame()
             index.pop_back();
         }
     }
-    cout << "1";
-
-
-    // Competitors.showCompetitors();
-
-    // for (int i = 0; i < 3; i++) {
-    //     Divisions[i].showDetails();
-    // }
-
-    // for (int i = 0; i < 3; i++) {
-    //     for (int j = 0; j < 33; j++) {
-    //         // int PlayerAssigned = rand() % NumberAvailable;
-    //         // cout << index[PlayerAssigned] << " ";
-    //         // // PlayersAvailable.erase(PlayersAvailable.begin() + PlayerAssigned);
-    //         // NumberAvailable--;
-    //     }
-    //     // cout << endl;
-    // }
 
     NumberAvailable = 99;
 
@@ -271,28 +272,25 @@ void createGame()
         for (int j = 0; j < 33; j++) {
             int PlayerAssigned = rand() % NumberAvailable;
             Divisions[i].addCompetitor(stoi(index[PlayerAssigned]));
-            // cout << index[PlayerAssigned] << " ";
             index.erase(index.begin() + PlayerAssigned);
             NumberAvailable--;
         }
-        // cout << endl;
     }
 
-    Divisions[0].showAssignedCompetitors();
-    Divisions[1].showAssignedCompetitors();
-    Divisions[2].showAssignedCompetitors();
+    // Divisions[0].showAssignedCompetitors();
+    // Divisions[1].showAssignedCompetitors();
+    // Divisions[2].showAssignedCompetitors();
 
 
     Divisions[0].splitCompetitorsToSupervisors();
     Divisions[1].splitCompetitorsToSupervisors();
     Divisions[2].splitCompetitorsToSupervisors();
 
+    // Competitors.showCompetitors();
 
-    Divisions[0].showSplit();
-    Divisions[1].showSplit();
-    Divisions[2].showSplit();
-
-
+    // Divisions[0].showSplit();
+    // Divisions[1].showSplit();
+    // Divisions[2].showSplit();
 
     return;
 }
