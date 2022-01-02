@@ -1,5 +1,6 @@
 #include "CreateGame.h"
-#include "RedLightGreenLight.h"
+#include "TugOfWar.h"
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -12,7 +13,15 @@ int main()
     createGame();
     RedLightGreenLight();
 
+    TugOfWar();
+
     Competitors.showCompetitors();
+
+    sort(Players.begin(), Players.end());
+
+    for (int i = 0; i < Players.size(); i++) {
+        cout << Players[i] << " ";
+    }
 
     return 0;
 }

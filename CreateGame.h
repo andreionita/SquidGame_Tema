@@ -43,6 +43,11 @@ public:
     string getSurname() {
         return this -> Surname;
     }
+
+    string getFullName() {
+        return this -> Name + " " + this -> Surname;
+    }
+
     string getCity() {
         return this -> City;
     }
@@ -86,11 +91,11 @@ public:
 
 class People {
 private:
-    Competitor Person[100];
+    Competitor Person[102];
     int NOH; // Number of humans
 public:
     People() {
-        NOH = 0;
+        NOH = 1;
     }
     void addPerson(string name, string surname, string city) {
         Person[NOH].setName(name);
@@ -98,23 +103,28 @@ public:
         Person[NOH].setCity(city);
         Person[NOH].measureWeight();
         Person[NOH].writeMoneyOwed();
-        Person[NOH].setNumber(NOH + 1);
+        Person[NOH].setNumber(NOH);
         NOH++;
     }
+
+    int getWeightByIndex(int index) {
+        return Person[index].getWeight();
+    }
+
     void showNOH() {
         cout << NOH << endl;
     }
     void showCompetitors() {
-        for (int i = 0; i < NOH; i++) {
+        for (int i = 1; i < NOH; i++) {
             Person[i].showDetails();
         }
     }
-    void getCompetitorName(int number) {
-        cout << Person[number - 1].getName() << " " << Person[number - 1].getSurname() << endl;
+    string getCompetitorName(int number) {
+        return Person[number].getFullName();
     }
 
     void eliminateCompetitor(int number) {
-        Person[number - 1].getsEliminated();
+        Person[number].getsEliminated();
     }
 };
 
