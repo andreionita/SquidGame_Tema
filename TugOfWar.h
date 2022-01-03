@@ -2,7 +2,6 @@
 #include <time.h>
 #include <stdlib.h>
 #include <iostream>
-#include "RedLightGreenLight.h"
 
 using namespace std;
 

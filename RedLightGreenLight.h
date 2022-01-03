@@ -1,7 +1,5 @@
 #include <vector>
 
-vector <int> Players;
-
 void RedLightGreenLight() 
 {
     for (int i = 2; i < 100; i += 2) {
