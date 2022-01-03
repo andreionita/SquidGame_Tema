@@ -9,6 +9,8 @@ using namespace std;
 
 #define NR_OF_DIVISIONS 3
 
+string leaveSpaceNames(string name, string city);
+
 class Human {
 private:
     string Name;
@@ -79,18 +81,18 @@ public:
         if (this -> Number < 10) {
                 if (isEliminated) {
                 cout << "ELIMINATED : " << getNumber() <<  ".  Name: " << getName() << " " << getSurname() << " from " <<
-                    getCity() << " | Weight : " << getWeight() << " | Money owed : " << getMoneyOwed() << endl;  
+                    getCity() << leaveSpaceNames(getFullName(), getCity()) << " | Weight : " << getWeight() << " | Money owed : " << getMoneyOwed() << endl;  
             } else {
                 cout << "     ALIVE : " << getNumber() <<  ".  Name: " << getName() << " " << getSurname() << " from " <<
-                    getCity() << " | Weight : " << getWeight() << " | Money owed : " << getMoneyOwed() << endl;  
+                    getCity() << leaveSpaceNames(getFullName(), getCity()) << " | Weight : " << getWeight() << " | Money owed : " << getMoneyOwed() << endl;  
             }    
         } else {
                 if (isEliminated) {
                 cout << "ELIMINATED : " << getNumber() <<  ". Name: " << getName() << " " << getSurname() << " from " <<
-                    getCity() << " | Weight : " << getWeight() << " | Money owed : " << getMoneyOwed() << endl;  
+                    getCity() << leaveSpaceNames(getFullName(), getCity()) << " | Weight : " << getWeight() << " | Money owed : " << getMoneyOwed() << endl;  
             } else {
                 cout << "     ALIVE : " << getNumber() <<  ". Name: " << getName() << " " << getSurname() << " from " <<
-                    getCity() << " | Weight : " << getWeight() << " | Money owed : " << getMoneyOwed() << endl;  
+                    getCity() << leaveSpaceNames(getFullName(), getCity()) << " | Weight : " << getWeight() << " | Money owed : " << getMoneyOwed() << endl;  
             }
         }
     }
@@ -226,5 +228,15 @@ public:
         }
     }
 };
+
+string leaveSpaceNames(string name, string city)
+{
+    int x = 40 - name.size() - city.size();
+    string y;
+    for (int i = 0; i < x; i++) {
+        y = y + " ";
+    }
+    return y;
+}
 
 #endif
