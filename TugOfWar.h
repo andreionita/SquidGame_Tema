@@ -12,6 +12,7 @@ using namespace std;
 vector<vector<int>> Teams( NR_OF_TEAMS , vector<int> (PLAYERS_PER_TEAM));
 
 string leaveSpace(string name);
+void showTugOfWarTeams(string name1, string name2);
 
 void TugOfWar()
 {
@@ -26,16 +27,16 @@ void TugOfWar()
         }
     }
 
-    for (int i = 0; i < NR_OF_TEAMS; i++) {
-        for (int j = 0; j < PLAYERS_PER_TEAM; j++) {
-            cout << Teams[i][j] << " ";
-        }
-        cout << endl;
-    }
+    // for (int i = 0; i < NR_OF_TEAMS; i++) {
+    //     for (int j = 0; j < PLAYERS_PER_TEAM; j++) {
+    //         cout << Teams[i][j] << " ";
+    //     }
+    //     cout << endl;
+    // }
 
-    for (int i = 0; i < Players.size(); i++) {
-        cout << Players[i] << " ";
-    }
+    // for (int i = 0; i < Players.size(); i++) {
+    //     cout << Players[i] << " ";
+    // }
 
     cout << endl;
 
@@ -44,7 +45,7 @@ void TugOfWar()
     int Team3Weight = 0;
     int Team4Weight = 0;
 
-    cout << "TEAM 1" << leaveSpace("x") << "VS     TEAM 3" << endl;
+    cout << "TEAM 1" << leaveSpace("TEAM 1") << "VS     TEAM 3" << endl;
     cout << endl;
 
     for (int i = 0; i < PLAYERS_PER_TEAM; i++) {
@@ -52,12 +53,13 @@ void TugOfWar()
         int Team3PersonWeight = Competitors.getWeightByIndex(Teams[2][i]);
         string Team1PersonName = Competitors.getCompetitorName(Teams[0][i]);
         string Team3PersonName = Competitors.getCompetitorName(Teams[2][i]);
-        cout << Team1PersonName << " with " << Team1PersonWeight << " kg." << leaveSpace(Team1PersonName)
-             << "VS     "  << Team3PersonName << " with " << Team3PersonWeight << " kg." << endl;
+
+        showTugOfWarTeams(Team1PersonName, Team3PersonName);
+
         Team1Weight += Team1PersonWeight;
         Team3Weight += Team3PersonWeight;
     }
-    cout << "TEAM 1 Weight : " << Team1Weight << leaveSpace("TEAM 1 Weight ") << " VS TEAM 3 Weight : " << Team3Weight << endl;
+    cout << "TEAM 1 Weight : " << Team1Weight << leaveSpace("TEAM 1 Weight : 999") << "VS     TEAM 3 Weight : " << Team3Weight << endl;
     cout << endl;
 
     if (Team1Weight > Team3Weight) {
@@ -72,19 +74,20 @@ void TugOfWar()
         }
     
     }
-    cout << "TEAM 2" << leaveSpace("x") << "VS     TEAM 4" << endl << endl;
+    cout << "TEAM 2" << leaveSpace("TEAM 2") << "VS     TEAM 4" << endl << endl;
 
     for (int i = 0; i < PLAYERS_PER_TEAM; i++) {
         int Team2PersonWeight = Competitors.getWeightByIndex(Teams[1][i]);
         int Team4PersonWeight = Competitors.getWeightByIndex(Teams[3][i]);
         string Team2PersonName = Competitors.getCompetitorName(Teams[1][i]);
         string Team4PersonName = Competitors.getCompetitorName(Teams[3][i]);
-        cout << Team2PersonName << " with " << Team2PersonWeight << " kg." << leaveSpace(Team2PersonName)
-             << "VS     "  << Team4PersonName << " with " << Team4PersonWeight << " kg." << endl;
+        
+        showTugOfWarTeams(Team2PersonName, Team4PersonName);
+
         Team2Weight += Team2PersonWeight;
         Team4Weight += Team4PersonWeight;
     }
-    cout << "TEAM 2 Weight : " << Team2Weight << leaveSpace("TEAM 1 Weight ") << " VS TEAM 4 Weight : " << Team4Weight << endl;
+    cout << "TEAM 2 Weight : " << Team2Weight << leaveSpace("TEAM 2 Weight : 999") << "VS     TEAM 4 Weight : " << Team4Weight << endl << endl;
     if (Team2Weight > Team4Weight) {
         for (int i = 0; i < PLAYERS_PER_TEAM; i++) {
             Competitors.eliminateCompetitor(Teams[3][i]);
@@ -96,14 +99,22 @@ void TugOfWar()
             Players.push_back(Teams[3][i]);
         }
     }
+
+    Competitors.showCompetitors();
 }
 
 string leaveSpace(string name) 
 {
-    int x = 20 - name.size();
+    int x = 24 - name.size();
     string y;
     for (int i = 0; i < x; i++) {
         y = y + " ";
     }
     return y;
+}
+
+void showTugOfWarTeams(string name1, string name2)
+{
+    cout << name1 << leaveSpace(name1)
+             << "VS     "  << name2 << endl;
 }

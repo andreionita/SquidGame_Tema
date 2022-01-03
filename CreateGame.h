@@ -8,6 +8,8 @@
 
 using namespace std;
 
+#define NR_OF_DIVISIONS 3
+
 class Human {
 private:
     string Name;
@@ -75,12 +77,22 @@ public:
     }
 
     void showDetails() {
-        if (isEliminated) {
-            cout << "ELIMINATED : " << getNumber() <<  ". Name: " << getName() << " " << getSurname() << " from " <<
-                 getCity() << " | Weight : " << getWeight() << " | Money owed : " << getMoneyOwed() << endl;  
+        if (this -> Number < 10) {
+                if (isEliminated) {
+                cout << "ELIMINATED : " << getNumber() <<  ".  Name: " << getName() << " " << getSurname() << " from " <<
+                    getCity() << " | Weight : " << getWeight() << " | Money owed : " << getMoneyOwed() << endl;  
+            } else {
+                cout << "     ALIVE : " << getNumber() <<  ".  Name: " << getName() << " " << getSurname() << " from " <<
+                    getCity() << " | Weight : " << getWeight() << " | Money owed : " << getMoneyOwed() << endl;  
+            }    
         } else {
-            cout << "     ALIVE : " << getNumber() <<  ". Name: " << getName() << " " << getSurname() << " from " <<
-                 getCity() << " | Weight : " << getWeight() << " | Money owed : " << getMoneyOwed() << endl;  
+                if (isEliminated) {
+                cout << "ELIMINATED : " << getNumber() <<  ". Name: " << getName() << " " << getSurname() << " from " <<
+                    getCity() << " | Weight : " << getWeight() << " | Money owed : " << getMoneyOwed() << endl;  
+            } else {
+                cout << "     ALIVE : " << getNumber() <<  ". Name: " << getName() << " " << getSurname() << " from " <<
+                    getCity() << " | Weight : " << getWeight() << " | Money owed : " << getMoneyOwed() << endl;  
+            }
         }
     }
 
@@ -287,20 +299,11 @@ void createGame()
         }
     }
 
-    // Divisions[0].showAssignedCompetitors();
-    // Divisions[1].showAssignedCompetitors();
-    // Divisions[2].showAssignedCompetitors();
+    for (int i = 0; i < NR_OF_DIVISIONS; i++) {
+        Divisions[i].splitCompetitorsToSupervisors();
+    }
 
 
-    Divisions[0].splitCompetitorsToSupervisors();
-    Divisions[1].splitCompetitorsToSupervisors();
-    Divisions[2].splitCompetitorsToSupervisors();
-
-    // Competitors.showCompetitors();
-
-    // Divisions[0].showSplit();
-    // Divisions[1].showSplit();
-    // Divisions[2].showSplit();
 
     return;
 }

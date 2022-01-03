@@ -1,8 +1,10 @@
 #include "CreateGame.h"
 #include "TugOfWar.h"
+// #include "Marbles.h"
 #include <bits/stdc++.h>
 
 using namespace std;
+
 
 int main()
 {
@@ -11,17 +13,20 @@ int main()
     }
 
     createGame();
+
+    Competitors.showCompetitors();
+
     RedLightGreenLight();
 
     TugOfWar();
 
-    Competitors.showCompetitors();
-
     sort(Players.begin(), Players.end());
 
-    for (int i = 0; i < Players.size(); i++) {
-        cout << Players[i] << " ";
-    }
+    // for (int i = 0; i < Players.size(); i++) {
+    //     cout << Players[i] << " ";
+    // }
+
+    // Marbles();
 
     return 0;
 }
