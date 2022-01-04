@@ -1,7 +1,8 @@
 #include "CreateGame.h"
-#include "TugOfWar.h"
 #include "RedLightGreenLight.h"
+#include "TugOfWar.h"
 #include "Marbles.h"
+#include "Genken.h"
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -28,6 +29,8 @@ int main()
     cout << endl;
 
     Marbles();
+
+    Genken();
 
     return 0;
 }
