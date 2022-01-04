@@ -26,13 +26,13 @@ void Marbles()
         }
 
         if (FirstPlayerRoll < SecondPlayerRoll) {
-            Players[i] = 0;
-            cout << i << endl;
-            Competitors.eliminateCompetitor(Players[i]);
-        } else {
-            cout << n / 2 + i << endl;
-            Players[n / 2 + i] = 0;
+            cout << Players[n / 2 + i] << endl;
             Competitors.eliminateCompetitor(Players[n / 2 + i]);
+            Players[n / 2 + i] = 0;
+        } else {
+            cout << Players[i] << endl;
+            Competitors.eliminateCompetitor(Players[i]);
+            Players[i] = 0;
         }
 
         showDuelMarbles(FirstPlayer, SecondPlayer, FirstPlayerRoll, SecondPlayerRoll);
@@ -54,7 +54,7 @@ void showDuelMarbles(string name1, string name2, int nr1, int nr2)
 {
     cout << name1 << leaveSpaceDuel(name1) << "VS   " << name2 << endl;
     cout << name1 << " rolled " << nr1 << ". " << name2 << " rolled " << nr2 << ". ";
-    if (nr1 < nr2) {
+    if (nr1 > nr2) {
         cout << name1 << " gets eliminated." << endl;
     } else {
         cout << name2 << " gets eliminated." << endl;
