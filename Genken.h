@@ -16,44 +16,42 @@ void Genken()
 
     srand(time(NULL));
 
-    int Rounds = 1;
+    for (int i = Players.size() - 1 ; i > 0; i--) {
+        if (Players.size() == 1)
+            goto WINNER;
 
-    while(Players.size() > 1) {
-        cout << endl << "ROUND " << Rounds << endl;
-        for (int i = Players.size() - 1; i > 0; i--) {
-        // cout << Players[i] << " " << Players[i + 1] << endl;
-            string FirstPlayer  = Competitors.getCompetitorName(Players[i]);
-            bool stop = false;
-            for (int j = i - 1, z = 0; j >= 0 && stop == false; j--) {
-                string SecondPlayer = Competitors.getCompetitorName(Players[j]);
-                int result = showDuelGenken(FirstPlayer, SecondPlayer);
-                cout << result << endl;
-                for (int k = 0; k < Players.size(); k++)
-                    cout << Players[k] << " ";
-                cout << endl;
-                if (result == 1) 
-                    Players[j] = 0;
-                
-                if (result == 2) {
-                    Players[i] = 0;
-                    stop = true;
-                    i-=z;
-                }
-                z++;
+        string FirstPlayer  = Competitors.getCompetitorName(Players[i]);
+        bool stop = false;
+        for (int j = i - 1, z = 0; j >= 0 && stop == false; j--) {
+            string SecondPlayer = Competitors.getCompetitorName(Players[j]);
+            int result = showDuelGenken(FirstPlayer, SecondPlayer);
+            // for (int k = 0; k < Players.size(); k++)
+            //     cout << Players[k] << " ";
+            // cout << endl;
+
+            cout << "i : " << i << " j : " << j << endl;
+
+            if (result == 1) {
+                Players[j] = 0;
             }
-
-            for (int k = Players.size() - 1; k >= 0; k--) 
-                if (Players[k] == 0) 
-                    Players.erase(Players.begin() + k);
+            
+            if (result == 2) {
+                Players[i] = 0;
+                stop = true;
+                i -= z;
+            }
+            z++;
         }
 
-        for (int k = 0; k < Players.size(); k++)
-            cout << Players[k] << " ";
-        cout << endl;
-        Rounds++;
+        for (int k = Players.size() - 1; k >= 0; k--) {
+            if (Players[k] == 0)    
+                Players.erase(Players.begin() + k);
+        }       
     }
     
-    cout << "WINNER IS " << Competitors.getCompetitorName(Players[0]); 
+    WINNER:
+
+    cout << "WINNER IS " << Competitors.getCompetitorName(Players[0]);
 }
 
 int showDuelGenken(string name1, string name2) // Returns 1 if the first player wins, returns 2 if the second player wins 
