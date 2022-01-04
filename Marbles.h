@@ -5,7 +5,7 @@
 using namespace std;
 
 string leaveSpaceDuel(string name); 
-void showDuel(string name1, string name2, int nr1, int nr2);
+void showDuelMarbles(string name1, string name2, int nr1, int nr2);
 
 void Marbles()
 {
@@ -35,7 +35,7 @@ void Marbles()
             Competitors.eliminateCompetitor(Players[n / 2 + i]);
         }
 
-        showDuel(FirstPlayer, SecondPlayer, FirstPlayerRoll, SecondPlayerRoll);
+        showDuelMarbles(FirstPlayer, SecondPlayer, FirstPlayerRoll, SecondPlayerRoll);
     }
 
     Competitors.showCompetitors();
@@ -50,7 +50,7 @@ void Marbles()
     }
 }
 
-void showDuel(string name1, string name2, int nr1, int nr2)
+void showDuelMarbles(string name1, string name2, int nr1, int nr2)
 {
     cout << name1 << leaveSpaceDuel(name1) << "VS   " << name2 << endl;
     cout << name1 << " rolled " << nr1 << ". " << name2 << " rolled " << nr2 << ". ";
