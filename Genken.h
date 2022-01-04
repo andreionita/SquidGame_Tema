@@ -20,26 +20,35 @@ void Genken()
 
     while(Players.size() > 1) {
         cout << endl << "ROUND " << Rounds << endl;
-        for (int i = Players.size() - 2; i >= 0; i -= 2) {
+        for (int i = Players.size() - 1; i > 0; i--) {
         // cout << Players[i] << " " << Players[i + 1] << endl;
-        string FirstPlayer  = Competitors.getCompetitorName(Players[i]);
-        string SecondPlayer = Competitors.getCompetitorName(Players[i + 1]);
+            string FirstPlayer  = Competitors.getCompetitorName(Players[i]);
+            bool stop = false;
+            for (int j = i - 1, z = 0; j >= 0 && stop == false; j--) {
+                string SecondPlayer = Competitors.getCompetitorName(Players[j]);
+                int result = showDuelGenken(FirstPlayer, SecondPlayer);
+                cout << result << endl;
+                for (int k = 0; k < Players.size(); k++)
+                    cout << Players[k] << " ";
+                cout << endl;
+                if (result == 1) 
+                    Players[j] = 0;
+                
+                if (result == 2) {
+                    Players[i] = 0;
+                    stop = true;
+                    i-=z;
+                }
+                z++;
+            }
 
-        int result = showDuelGenken(FirstPlayer, SecondPlayer); 
-
-        if (result == 1) {
-            Players[i + 1] = 0;
-        }
-        if (result == 2) {
-            Players[i] = 0;
+            for (int k = Players.size() - 1; k >= 0; k--) 
+                if (Players[k] == 0) 
+                    Players.erase(Players.begin() + k);
         }
 
-        for (int j = Players.size() - 1; j >= 0; j--) 
-            if (Players[j] == 0) 
-                Players.erase(Players.begin() + j);
-        }
-        for (int j = 0; j < Players.size(); j++)
-            cout << Players[j] << " ";
+        for (int k = 0; k < Players.size(); k++)
+            cout << Players[k] << " ";
         cout << endl;
         Rounds++;
     }
@@ -60,7 +69,7 @@ int showDuelGenken(string name1, string name2) // Returns 1 if the first player 
     cout << name1 << leaveSpace(name1) << "VS   " << name2 << endl;
     cout << name1 << " chose " << Choice[choice1] << ". " << name2 << " chose " << Choice[choice2] << ". ";
 
-    
+
     // ROCK = 0 , PAPER = 1, SCISSORS = 2 
 
     if (choice1 == 0 && choice2 == 1) {
