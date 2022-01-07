@@ -80,6 +80,7 @@ public:
     void showDetails() {
         if (this -> Number < 10) {
                 if (isEliminated) {
+                return;
                 cout << "ELIMINATED : " << getNumber() <<  ".  Name: " << getName() << " " << getSurname() << " from " <<
                     getCity() << leaveSpaceNames(getFullName(), getCity()) << " | Weight : " << getWeight() << " | Money owed : " << getMoneyOwed() << endl;  
             } else {
@@ -88,6 +89,7 @@ public:
             }    
         } else {
                 if (isEliminated) {
+                return;
                 cout << "ELIMINATED : " << getNumber() <<  ". Name: " << getName() << " " << getSurname() << " from " <<
                     getCity() << leaveSpaceNames(getFullName(), getCity()) << " | Weight : " << getWeight() << " | Money owed : " << getMoneyOwed() << endl;  
             } else {
@@ -139,14 +141,28 @@ public:
     void eliminateCompetitor(int number) {
         Person[number].getsEliminated();
     }
+
+    int getMoneyOwedByIndex(int number) {
+        return Person[number].getMoneyOwed();
+    }
+
+    int getBigPrize() {
+        unsigned long int BigPrize = 0;
+        for (int i = 1; i < NOH; i++) {
+            BigPrize += getMoneyOwedByIndex(i);
+        }
+
+        return BigPrize;
+    }
 };
 
 class Supervisor : public Human {
 private:
     string Mask;
     vector <int> CompetitorsAllocated;
+    unsigned long int PrizeWon;
 public:
-    void setMask(string mask) {
+    void setMask(string mask) { 
         this -> Mask = mask;
     }
 
@@ -167,6 +183,21 @@ public:
             cout << CompetitorsAllocated[i] << " ";
         }
         cout << endl;
+    }
+
+    long int getPrize(int winnerNumber, People Competitors) {
+        long int PrizeWon = 0;
+        for (int i = 0; i < CompetitorsAllocated.size(); i++) {
+            int PlayerNumber = CompetitorsAllocated[i];
+            if (winnerNumber == PlayerNumber) {
+                PrizeWon += Competitors.getMoneyOwedByIndex(PlayerNumber) * 10;
+            } else {
+                PrizeWon += Competitors.getMoneyOwedByIndex(PlayerNumber);
+            }
+        }
+        PrizeWon -= getMoneyOwed();
+        cout << "Supervisor : " << getName() << " " << getSurname() << " has won " << PrizeWon << endl;
+        return PrizeWon;
     }
 };
 
@@ -222,9 +253,16 @@ public:
             cout << "Incorrect number of competitors assigned" << endl;
         }
     }
+
     void showSplit() {
         for (int i = 0; i < NOS; i++) {
             Person[i].showAllocatedCompetitors();
+        }
+    }
+
+    void showEarnings(int number, People Competitors) {
+        for (int i = 0; i < NOS; i++) {
+            Person[i].getPrize(number, Competitors);
         }
     }
 };

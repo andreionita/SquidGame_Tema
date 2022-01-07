@@ -3,6 +3,7 @@
 #include "TugOfWar.h"
 #include "Marbles.h"
 #include "Genken.h"
+#include "WinnersEarnings.h"
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -31,6 +32,15 @@ int main()
     Marbles();
 
     Genken();
+
+    cout << endl;
+    cout << Competitors.getBigPrize() << endl;
+
+    for (int i = 0; i < NR_OF_DIVISIONS; i++) {
+        Divisions[i].showDetails();
+        Divisions[i].showSplit();
+        Divisions[i].showEarnings(Players[0], Competitors);
+    }
 
     return 0;
 }
