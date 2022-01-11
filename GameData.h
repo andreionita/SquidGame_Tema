@@ -185,7 +185,7 @@ public:
         cout << endl;
     }
 
-    long int getPrize(int winnerNumber, People Competitors) {
+    long int getPrize(People Competitors, int winnerNumber) {
         long int PrizeWon = 0;
         for (int i = 0; i < CompetitorsAllocated.size(); i++) {
             int PlayerNumber = CompetitorsAllocated[i];
@@ -196,7 +196,7 @@ public:
             }
         }
         PrizeWon -= getMoneyOwed();
-        cout << "Supervisor : " << getName() << " " << getSurname() << " has won " << PrizeWon << endl;
+        // cout << "Supervisor : " << getName() << " " << getSurname() << " has won " << PrizeWon << endl;
         return PrizeWon;
     }
 };
@@ -260,10 +260,18 @@ public:
         }
     }
 
-    void showEarnings(int number, People Competitors) {
+    void showEarnings(People Competitors, int number) {
         for (int i = 0; i < NOS; i++) {
-            Person[i].getPrize(number, Competitors);
+            Person[i].getPrize(Competitors, number);
         }
+    }
+
+    string getFullNameByIndex(int index) {
+        return Person[index].getFullName();
+    }
+
+    long int getPrizeWonByIndex(People Competitors, int winnerNumber, int index) {
+        return Person[index].getPrize(Competitors, winnerNumber);
     }
 };
 

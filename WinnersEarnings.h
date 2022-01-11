@@ -1,36 +1,39 @@
-#include <iostream>
-#include <vector>
-#include <string>
+#include <bits/stdc++.h>
 
 using namespace std;
 
-class Winners {
-private:
+struct Winner {
     string FullName;
-    unsigned long int PrizeWon;
-public:
-    Winners() {
-        PrizeWon = 0;
-    }
-
-    void setName(string fullName) {
-        this -> FullName = fullName;
-    }
-
-    void setPrizeWon(unsigned long int prize) {
-        this -> PrizeWon = prize;
-    } 
-
-    string getFullName() {
-        return this -> FullName;
-    }
-
-    long int getPrizeWon() {
-        return this -> PrizeWon;
-    }
+    long int PrizeWon;
 };
+
+bool comparator(Winner w1, Winner w2) {
+    return (w1.PrizeWon > w2.PrizeWon);
+}
 
 void WinnersEarnings()
 {
+    vector <Winner> Winners;
+
+    Winner w;
+    w.FullName = Competitors.getCompetitorName(Players[0]);
+    w.PrizeWon = Competitors.getBigPrize();
+
+    Winners.push_back(w);
+
+    for (int i = 0; i < NR_OF_DIVISIONS; i++) {
+        for (int j = 0; j < 3; j++) {
+            w.FullName = Divisions[i].getFullNameByIndex(j);
+            w.PrizeWon = Divisions[i].getPrizeWonByIndex(Competitors, Players[0], j);
+
+            Winners.push_back(w);
+        }
+    }
+
+    sort(Winners.begin(), Winners.end(), comparator);
+
+    for (auto x : Winners) {
+        cout << x.FullName << " has won " << x.PrizeWon << ". \n";
+    }
     
 }
