@@ -7,7 +7,7 @@
 
 using namespace std;
 
-People Competitors;
+CompetitorList Competitors;
 SupervisorDivision Divisions[3];
 vector <int> Players;
 

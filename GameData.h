@@ -4,12 +4,13 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <unistd.h>
 
 using namespace std;
 
 #define NR_OF_DIVISIONS 3
 
-string leaveSpaceNames(string name, string city);
+string leaveSpaceNames(string name, string city, string mask);
 
 class Human {
 private:
@@ -82,19 +83,19 @@ public:
                 if (isEliminated) {
                 return;
                 cout << "ELIMINATED : " << getNumber() <<  ".  Name: " << getName() << " " << getSurname() << " from " <<
-                    getCity() << leaveSpaceNames(getFullName(), getCity()) << " | Weight : " << getWeight() << " | Money owed : " << getMoneyOwed() << endl;  
+                    getCity() << leaveSpaceNames(getFullName(), getCity(), "") << " | Weight : " << getWeight() << " | Money owed : " << getMoneyOwed() << endl;  
             } else {
-                cout << "     ALIVE : " << getNumber() <<  ".  Name: " << getName() << " " << getSurname() << " from " <<
-                    getCity() << leaveSpaceNames(getFullName(), getCity()) << " | Weight : " << getWeight() << " | Money owed : " << getMoneyOwed() << endl;  
+                cout << "ALIVE : " << getNumber() <<  ".  Name: " << getName() << " " << getSurname() << " from " <<
+                    getCity() << leaveSpaceNames(getFullName(), getCity(), "") << " | Weight : " << getWeight() << " | Money owed : " << getMoneyOwed() << endl;  
             }    
         } else {
                 if (isEliminated) {
                 return;
                 cout << "ELIMINATED : " << getNumber() <<  ". Name: " << getName() << " " << getSurname() << " from " <<
-                    getCity() << leaveSpaceNames(getFullName(), getCity()) << " | Weight : " << getWeight() << " | Money owed : " << getMoneyOwed() << endl;  
+                    getCity() << leaveSpaceNames(getFullName(), getCity(), "") << " | Weight : " << getWeight() << " | Money owed : " << getMoneyOwed() << endl;  
             } else {
-                cout << "     ALIVE : " << getNumber() <<  ". Name: " << getName() << " " << getSurname() << " from " <<
-                    getCity() << leaveSpaceNames(getFullName(), getCity()) << " | Weight : " << getWeight() << " | Money owed : " << getMoneyOwed() << endl;  
+                cout << "ALIVE : " << getNumber() <<  ". Name: " << getName() << " " << getSurname() << " from " <<
+                    getCity() << leaveSpaceNames(getFullName(), getCity(), "") << " | Weight : " << getWeight() << " | Money owed : " << getMoneyOwed() << endl;  
             }
         }
     }
@@ -104,12 +105,12 @@ public:
     }
 };
 
-class People {
+class CompetitorList {
 private:
     Competitor Person[102];
     int NOH; // Number of humans
 public:
-    People() {
+    CompetitorList() {
         NOH = 1;
     }
     void addPerson(string name, string surname, string city) {
@@ -132,6 +133,7 @@ public:
     void showCompetitors() {
         for (int i = 1; i < NOH; i++) {
             Person[i].showDetails();
+            usleep(20000);
         }
     }
     string getCompetitorName(int number) {
@@ -170,7 +172,8 @@ public:
         return this -> Mask;
     }
     void showDetails() {
-        cout << "Mask : " << getMask() <<  ". Name: " << getName() << " " << getSurname() << " from " << getCity() << " | Weight : " << getWeight() << " | Money owed : " << getMoneyOwed() << endl;  
+        cout << "Mask : " << getMask() <<  ". Name: " << getName() << " " << getSurname() << " from " << getCity() << leaveSpaceNames(getFullName(), getCity(), getMask())
+            << " | Weight : " << getWeight() << " | Money owed : " << getMoneyOwed() << endl;  
     }
 
     void addCompetitors(int number) {
@@ -185,7 +188,7 @@ public:
         cout << endl;
     }
 
-    long int getPrize(People Competitors, int winnerNumber) {
+    long int getPrize(CompetitorList Competitors, int winnerNumber) {
         long int PrizeWon = 0;
         for (int i = 0; i < CompetitorsAllocated.size(); i++) {
             int PlayerNumber = CompetitorsAllocated[i];
@@ -223,6 +226,7 @@ public:
     void showDetails() {
         for (int i = 0; i < NOS; i++) {
             Person[i].showDetails();
+            usleep(20000);
         }
     }
 
@@ -260,7 +264,7 @@ public:
         }
     }
 
-    void showEarnings(People Competitors, int number) {
+    void showEarnings(CompetitorList Competitors, int number) {
         for (int i = 0; i < NOS; i++) {
             Person[i].getPrize(Competitors, number);
         }
@@ -270,14 +274,17 @@ public:
         return Person[index].getFullName();
     }
 
-    long int getPrizeWonByIndex(People Competitors, int winnerNumber, int index) {
+    long int getPrizeWonByIndex(CompetitorList Competitors, int winnerNumber, int index) {
         return Person[index].getPrize(Competitors, winnerNumber);
     }
 };
 
-string leaveSpaceNames(string name, string city)
+string leaveSpaceNames(string name, string city, string mask)
 {
-    int x = 40 - name.size() - city.size();
+    int x = 40 - name.size() - city.size() - mask.size();
+    if (mask.size()) {
+        x += 3;
+    }
     string y;
     for (int i = 0; i < x; i++) {
         y = y + " ";

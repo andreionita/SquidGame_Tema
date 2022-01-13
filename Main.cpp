@@ -17,6 +17,16 @@ int main()
     createGame();
 
     Competitors.showCompetitors();
+    usleep(1000000);
+
+    for (int i = 0; i < NR_OF_DIVISIONS; i++) {
+        cout << endl;
+        cout << "DIVISION " << i + 1 << endl;
+        Divisions[i].showDetails();
+        usleep(1000000);
+    }
+
+    cout << endl;
 
     RedLightGreenLight();
 
@@ -24,9 +34,6 @@ int main()
 
     sort(Players.begin(), Players.end());
 
-    for (int i = 0; i < Players.size(); i++) {
-        cout << Players[i] << " ";
-    }
     cout << endl;
 
     Marbles();
