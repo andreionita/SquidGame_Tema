@@ -22,8 +22,12 @@ void RedLightGreenLight()
     cout << "\nPress any key to show remaining players... " << endl;
     _getch();
 
-    cout << endl << "ALL PLAYERS WITH EVEN NUMBERS HAVE BEEN ELIMINATED !" << endl;
-    cout << "THE FOLLOWING PLAYERS REMAIN : \n\n";
+    usleep(1000000);
+
+    cout << endl << "All players with even number have been eliminated !" << endl;
+    cout << "The following players remain : \n\n";
+
+    usleep(2000000);
 
     Competitors.showCompetitors();
 

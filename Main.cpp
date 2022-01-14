@@ -43,11 +43,6 @@ int main()
     cout << endl;
     cout << Competitors.getBigPrize() << endl;
 
-    // for (int i = 0; i < NR_OF_DIVISIONS; i++) {
-    //     Divisions[i].showDetails();
-    //     Divisions[i].showSplit();
-    //     Divisions[i].showEarnings(Competitors, Players[0]);
-    // }
 
     WinnersEarnings();
 

@@ -4,7 +4,7 @@ using namespace std;
 
 struct Winner {
     string FullName;
-    long int PrizeWon;
+    int PrizeWon;
 };
 
 bool comparator(Winner w1, Winner w2) {
@@ -14,6 +14,12 @@ bool comparator(Winner w1, Winner w2) {
 void WinnersEarnings()
 {
     vector <Winner> Winners;
+
+    cout << endl;
+    cout << "Press any key to display how much each player won... " << endl;
+    _getch();
+
+    cout << "\nHere is how much the winners of the competition have earned : \n";
 
     Winner w;
     w.FullName = Competitors.getCompetitorName(Players[0]);
@@ -34,6 +40,7 @@ void WinnersEarnings()
 
     for (auto x : Winners) {
         cout << x.FullName << " has won " << x.PrizeWon << ". \n";
+        usleep(1000000);
     }
     
 }

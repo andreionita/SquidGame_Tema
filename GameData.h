@@ -149,7 +149,7 @@ public:
     }
 
     int getBigPrize() {
-        unsigned long int BigPrize = 0;
+        int BigPrize = 0;
         for (int i = 1; i < NOH; i++) {
             BigPrize += getMoneyOwedByIndex(i);
         }
@@ -162,7 +162,7 @@ class Supervisor : public Human {
 private:
     string Mask;
     vector <int> CompetitorsAllocated;
-    unsigned long int PrizeWon;
+    unsigned int PrizeWon;
 public:
     void setMask(string mask) { 
         this -> Mask = mask;
@@ -188,8 +188,8 @@ public:
         cout << endl;
     }
 
-    long int getPrize(CompetitorList Competitors, int winnerNumber) {
-        long int PrizeWon = 0;
+    int getPrize(CompetitorList Competitors, int winnerNumber) {
+        int PrizeWon = 0;
         for (int i = 0; i < CompetitorsAllocated.size(); i++) {
             int PlayerNumber = CompetitorsAllocated[i];
             if (winnerNumber == PlayerNumber) {
@@ -274,7 +274,7 @@ public:
         return Person[index].getFullName();
     }
 
-    long int getPrizeWonByIndex(CompetitorList Competitors, int winnerNumber, int index) {
+    int getPrizeWonByIndex(CompetitorList Competitors, int winnerNumber, int index) {
         return Person[index].getPrize(Competitors, winnerNumber);
     }
 };

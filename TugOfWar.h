@@ -16,7 +16,7 @@ void showTugOfWarTeams(string name1, string name2);
 
 void TugOfWar()
 {
-    cout << "Next game will be tug of war. In this game, the weight of each person will play an important role in winning. \n";
+    cout << "The next game will be tug of war. In this game, the weight of each person will play an important role in winning. \n";
     usleep(3000000);
     cout << "The team that outweighs the other will win and will advance to the next game. The losing team will be eliminated. \n";
     usleep(3000000);

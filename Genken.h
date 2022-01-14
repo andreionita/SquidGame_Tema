@@ -14,6 +14,13 @@ void Genken()
 {
     cout << endl << endl;
 
+    cout << "The next game is genken (rock, paper, scissors). The game will start with the last person.\n";
+    usleep(3000000);
+    cout << "The game is played until one player is eliminated and then goes on to the next until only one winner remains.\n";
+    usleep(3000000);
+    cout << "Press any key to start the game... " << endl;
+    _getch();
+
     srand(time(NULL));
 
     for (int i = Players.size() - 1 ; i > 0; i--) {
@@ -22,14 +29,11 @@ void Genken()
 
         string FirstPlayer  = Competitors.getCompetitorName(Players[i]);
         bool stop = false;
-        for (int j = i - 1, z = 0; j >= 0 && stop == false; j--) {
+        for (int j = i - 1, Winstreak = 0; j >= 0 && stop == false; j--) {
             string SecondPlayer = Competitors.getCompetitorName(Players[j]);
+            usleep(1000000);
             int result = showDuelGenken(FirstPlayer, SecondPlayer);
-            // for (int k = 0; k < Players.size(); k++)
-            //     cout << Players[k] << " ";
-            // cout << endl;
-
-            cout << "i : " << i << " j : " << j << endl;
+            usleep(1000000);
 
             if (result == 1) {
                 Players[j] = 0;
@@ -38,9 +42,9 @@ void Genken()
             if (result == 2) {
                 Players[i] = 0;
                 stop = true;
-                i -= z;
+                i -= Winstreak;
             }
-            z++;
+            Winstreak++;
         }
 
         for (int k = Players.size() - 1; k >= 0; k--) {
@@ -50,7 +54,7 @@ void Genken()
     }
     
     WINNER:
-
+    cout << endl;
     cout << "WINNER IS " << Competitors.getCompetitorName(Players[0]);
 }
 
