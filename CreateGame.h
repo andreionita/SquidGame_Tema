@@ -7,12 +7,20 @@
 
 using namespace std;
 
+// Main classes initialization
+
 CompetitorList Competitors;
 SupervisorDivision Divisions[3];
+
+// The "Players" vector will contain only the numbers of the players.
+// When someone is eliminated, we erase their number from the vector.
+
 vector <int> Players;
 
 void createGame()
 {
+    // Reading data from the CSV file
+
     vector<string> index;
     vector<string> names;
     vector<string> surnames;
@@ -22,7 +30,7 @@ void createGame()
 
     fstream file("Names_v2.csv", ios::in);
 
-    getline(file, line);
+    getline(file, line); // Skipping the first line
 
     if (file.is_open()) {
         while (getline(file, line)) {
@@ -43,7 +51,9 @@ void createGame()
         }
     }
 
-    srand(time(NULL));
+    srand(time(NULL)); // Random game every time
+
+    // Randomly assigning each person a number. Adding 99 players to the "Competitors" object. 
 
     int NumberAvailable = 108;
     for (int i = 0; i < 99; i++) {
@@ -61,6 +71,9 @@ void createGame()
     int supervisorIndex = 0;
     string maskType[] = {"Circle", "Triangle", "Square"};
 
+    // The remaining 9 players that didn't get selected to be competitors for the big prize are now supervisors.
+    // There will be 3 divisions. In each division, there will be each supervisor will have a different mask type (circle, triangle, square).
+
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++, supervisorIndex++) {
             Divisions[i].addPerson(names[supervisorIndex], surnames[supervisorIndex], cities[supervisorIndex], maskType[j]);
@@ -70,6 +83,8 @@ void createGame()
 
     NumberAvailable = 99;
 
+    // The competitors will have to be assigned to a supervisor. Since there are 99 players, each division will get 33 players.
+
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 33; j++) {
             int PlayerAssigned = rand() % NumberAvailable;
@@ -78,6 +93,8 @@ void createGame()
             NumberAvailable--;
         }
     }
+
+    // The next split, in which each supervisor gets 11 players.
 
     for (int i = 0; i < NR_OF_DIVISIONS; i++) {
         Divisions[i].splitCompetitorsToSupervisors();

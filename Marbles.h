@@ -22,19 +22,25 @@ void Marbles()
 
     srand(time(NULL));
 
+
     for (int i = 0; i < n / 2; i++) {
-        // cout << Players[i] << " " << Players[n / 2 + i] << endl;
+
+        // Creating the duels
+
         string FirstPlayer = Competitors.getCompetitorName(Players[i]);
         string SecondPlayer = Competitors.getCompetitorName(Players[n / 2 + i]);
+
         int FirstPlayerRoll = rand() % 15 + 1;
         int SecondPlayerRoll = rand() % 15 + 1;
 
-        while (FirstPlayerRoll == SecondPlayerRoll) {
+        while (FirstPlayerRoll == SecondPlayerRoll) { // Making sure the 2 players don't roll the same number
             FirstPlayerRoll = rand() % 15 + 1;
             SecondPlayerRoll = rand() % 15 + 1;
         }
 
-        if (FirstPlayerRoll < SecondPlayerRoll) {
+        // The losers number will not be deleted yet, just overwritten.
+
+        if (FirstPlayerRoll < SecondPlayerRoll) { 
             Competitors.eliminateCompetitor(Players[n / 2 + i]);
             Players[n / 2 + i] = 0;
         } else {
@@ -49,6 +55,8 @@ void Marbles()
     _getch();
 
     Competitors.showCompetitors();
+
+    // Eliminating the losers of the marbles game
 
     for (int i = Players.size() - 1; i >= 0; i--) {
         if (Players[i] == 0) 

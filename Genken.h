@@ -23,31 +23,33 @@ void Genken()
 
     srand(time(NULL));
 
-    for (int i = Players.size() - 1 ; i > 0; i--) {
-        if (Players.size() == 1)
+    for (int i = Players.size() - 1 ; i > 0; i--) { // Starting in descending order
+        if (Players.size() == 1) // Winning condition
             goto WINNER;
 
         string FirstPlayer  = Competitors.getCompetitorName(Players[i]);
         bool stop = false;
+
         for (int j = i - 1, Winstreak = 0; j >= 0 && stop == false; j--) {
             string SecondPlayer = Competitors.getCompetitorName(Players[j]);
             usleep(1000000);
+
             int result = showDuelGenken(FirstPlayer, SecondPlayer);
             usleep(1000000);
 
-            if (result == 1) {
+            if (result == 1) { // If the first player wins, he plays until he gets eliminated.
                 Players[j] = 0;
             }
             
-            if (result == 2) {
+            if (result == 2) { // If the second player wins, in the next turn he will try to go on the streak and try to win.
                 Players[i] = 0;
                 stop = true;
                 i -= Winstreak;
             }
-            Winstreak++;
+            Winstreak++; // The first player also gets a win streak so we know how many players we skip
         }
 
-        for (int k = Players.size() - 1; k >= 0; k--) {
+        for (int k = Players.size() - 1; k >= 0; k--) { // Erasing all the players that the first one has eliminated.
             if (Players[k] == 0)    
                 Players.erase(Players.begin() + k);
         }       

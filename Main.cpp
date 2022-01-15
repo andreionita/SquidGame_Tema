@@ -10,7 +10,7 @@ using namespace std;
 
 int main()
 {
-    for (int i = 1; i < 100; i++) {
+    for (int i = 1; i < 100; i++) { // Containts numbers from 1 to 99.
         Players.push_back(i);
     }
 
@@ -32,17 +32,9 @@ int main()
 
     TugOfWar();
 
-    sort(Players.begin(), Players.end());
-
-    cout << endl;
-
     Marbles();
 
     Genken();
-
-    cout << endl;
-    cout << Competitors.getBigPrize() << endl;
-
 
     WinnersEarnings();
 

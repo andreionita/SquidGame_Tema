@@ -70,17 +70,21 @@ private:
     int Number;
     bool isEliminated;
 public:
-    void setNumber(int number) {
-        this -> Number = number;
+    Competitor() {
         this -> isEliminated = false;
     }
+
+    void setNumber(int number) {
+        this -> Number = number;
+    }
+
     int getNumber() {
         return this -> Number;
     }
 
     void showDetails() {
         if (this -> Number < 10) {
-                if (isEliminated) {
+            if (isEliminated) {
                 return;
                 cout << "ELIMINATED : " << getNumber() <<  ".  Name: " << getName() << " " << getSurname() << " from " <<
                     getCity() << leaveSpaceNames(getFullName(), getCity(), "") << " | Weight : " << getWeight() << " | Money owed : " << getMoneyOwed() << endl;  
@@ -89,7 +93,7 @@ public:
                     getCity() << leaveSpaceNames(getFullName(), getCity(), "") << " | Weight : " << getWeight() << " | Money owed : " << getMoneyOwed() << endl;  
             }    
         } else {
-                if (isEliminated) {
+            if (isEliminated) {
                 return;
                 cout << "ELIMINATED : " << getNumber() <<  ". Name: " << getName() << " " << getSurname() << " from " <<
                     getCity() << leaveSpaceNames(getFullName(), getCity(), "") << " | Weight : " << getWeight() << " | Money owed : " << getMoneyOwed() << endl;  
@@ -108,34 +112,37 @@ public:
 class CompetitorList {
 private:
     Competitor Person[102];
-    int NOH; // Number of humans
+    int NOC; // Number of competitors
 public:
     CompetitorList() {
-        NOH = 1;
+        NOC = 1;
     }
+
     void addPerson(string name, string surname, string city) {
-        Person[NOH].setName(name);
-        Person[NOH].setSurname(surname);
-        Person[NOH].setCity(city);
-        Person[NOH].measureWeight();
-        Person[NOH].writeMoneyOwed();
-        Person[NOH].setNumber(NOH);
-        NOH++;
+        Person[NOC].setName(name);
+        Person[NOC].setSurname(surname);
+        Person[NOC].setCity(city);
+        Person[NOC].measureWeight();
+        Person[NOC].writeMoneyOwed();
+        Person[NOC].setNumber(NOC);
+        NOC++;
     }
 
     int getWeightByIndex(int index) {
         return Person[index].getWeight();
     }
 
-    void showNOH() {
-        cout << NOH << endl;
+    void showNOC() {
+        cout << NOC << endl;
     }
+
     void showCompetitors() {
-        for (int i = 1; i < NOH; i++) {
+        for (int i = 1; i < NOC; i++) {
             Person[i].showDetails();
             usleep(20000);
         }
     }
+
     string getCompetitorName(int number) {
         return Person[number].getFullName();
     }
@@ -150,7 +157,7 @@ public:
 
     int getBigPrize() {
         int BigPrize = 0;
-        for (int i = 1; i < NOH; i++) {
+        for (int i = 1; i < NOC; i++) {
             BigPrize += getMoneyOwedByIndex(i);
         }
 
@@ -199,7 +206,7 @@ public:
             }
         }
         PrizeWon -= getMoneyOwed();
-        // cout << "Supervisor : " << getName() << " " << getSurname() << " has won " << PrizeWon << endl;
+
         return PrizeWon;
     }
 };
@@ -208,7 +215,7 @@ class SupervisorDivision {
 private:
     Supervisor Person[3];
     int NOS; // Number of Supervisors
-    vector <int> CompetitorsAssigned;
+    vector <int> CompetitorsAssigned; 
 public:
     SupervisorDivision() {
         NOS = 0;
@@ -278,6 +285,8 @@ public:
         return Person[index].getPrize(Competitors, winnerNumber);
     }
 };
+
+// Function used to make the player list look like a table
 
 string leaveSpaceNames(string name, string city, string mask)
 {

@@ -9,11 +9,14 @@ void RedLightGreenLight()
     _getch();
 
     cout << endl;
+
     for (int i = 2; i < 100; i += 2) {
         Competitors.eliminateCompetitor(i);
         cout << "Eliminated number " << i << ": " << Competitors.getCompetitorName(i) << ".\n";
         usleep(100000);
     }
+
+    // Erasing the even numbered players because they can't be used in the other games.
 
     for (int i = Players.size() - 2; i > 0; i -= 2) {
         Players.erase(Players.begin() + i);
